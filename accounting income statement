@@ -1,0 +1,544 @@
+import time
+import sys
+import random
+import array
+import numpy as np
+
+#below for zip function for the final format of income statement
+def zip(*iterables):
+    # zip('ABCD', 'xy') --> Ax By
+    sentinel = object()
+    iterators = [iter(it) for it in iterables]
+    while iterators:
+        result = []
+        for it in iterators:
+            elem = next(it, sentinel)
+            if elem is sentinel:
+                return
+            result.append(elem)
+        yield tuple(result)
+
+
+
+#input title and date info
+company_name = input("please input company name:  ")
+print("")
+date = input("for the month/year ended as at:  ")
+print("")
+
+#loading screen
+time.sleep(2)
+print("please wait...")
+
+#confirmation1
+print("please check the following:")
+time.sleep(2)
+print("")
+print(company_name)
+print("INCOME STATEMENT")
+print("for the month/year ended", date)
+print("")
+print("**PLEASE BE NOTED THAT THE TOTAL WILL BE CALCULATED IN THE FINAL STEP**")
+print("")
+
+
+#confirmation2 end stage 1
+time.sleep(2)
+print("please press enter to continue")
+input()
+print("stage: continue.")
+print("")
+
+#add variables // sales
+add1 = np.array([])
+add_name1 = np.array([])
+less1 = np.array([])
+less_name1 = np.array([])
+statement = True
+aa = True
+count_add1 = -1
+count_less1 = -1
+cloop_add1 = True
+cloop_less1 = True
+cloopend = True
+salestotaladd = 0
+salestotalless = 0
+salestotal = 0
+grossprofitadd = 0
+grossprofitless = 0
+grossprofit = 0
+
+
+
+#start stage 2 sales add//less
+print("/////SALES/////")
+print("")
+
+
+while aa == True:
+        print("")
+        print("please enter the property of the item first(add/less), and the item's name and amount of the item respectively.")
+        print("")
+
+        print("please enter the property of the item (add/less):  ")
+        print("enter 'end' for ending the sales section ")
+        temp = input()
+
+        #end loop// sales
+        if temp == "end":
+          print("")
+          print("please enter the total amount of 'sales' made for the year:")
+          sales = input()
+          print("")
+          print("would you like to re-input the 'sales' amount again, type 'yes' for re-input, press any other key to continue")
+          temp = input()
+          if temp == "yes":
+            while cloopend == True:
+              print("")
+              print("please input the amount of 'sales' again.")
+              sales = input()
+              print("")
+              print("would you like to re-input the 'sales' amount again, type 'yes' for re-input, press any other key to continue")
+              temp = input()
+              if temp == "yes":
+                cloopend = True
+              else:
+                cloopend = False
+
+          print("")
+          print("printing out information...")
+          print("please check the following:")
+          print("")
+
+          print(company_name)
+          print("INCOME STATEMENT")
+          print("for the month/year ended", date)
+          print("")
+          print("/////SALES/////")
+          print("'item'[left]", "                     ", "'amount($)'[right]")
+          print("sales", "           ", sales)
+          for item_a, item_b in zip(add_name1, add1):
+              print("add:", item_a,"          ", item_b)
+
+          for item_a, item_b in zip(less_name1, less1):
+              print("less:",item_a,"          ", item_b)
+
+          salestotaladd = np.sum(add1)
+          salestotalless =  np.sum(less1)
+          salestotal = int(sales) + int(salestotaladd) - int(salestotalless)
+
+          print("net sales             ", salestotal)
+          print("")
+          print("please press input to confirm the above, and enter to the next stage.")
+          input()
+          aa = False
+
+
+        #add properties // sales
+        elif temp == "add":
+          print("")
+          print("please enter the item name")
+          add_name1 = np.append(add_name1, str(input()))
+          print(add_name1)
+          print("")
+          print("please enter the item's amount",)
+          add1 = np.append(add1, int(input()))
+          print(add1)
+          print("")
+          count_add1 = count_add1 + 1
+          print("number of current item is", count_add1)
+          print("")
+          print("would you like to re-input the amount again? enter 'yes' to re-input, press any other key to continue with new items")
+          temp = input()
+
+
+            #re-input loop // add // sales
+          if temp == "yes":
+              while cloop_add1 == True:
+                  print("")
+                  print("please type again for the item name you would like to change in item [", count_add1,"] [", add_name1[count_add1], "]")
+                  add_name1[count_add1] = input()
+                  print(add_name1[count_add1])
+                  print("")
+                  print("please type again for the item's amount you would like to change in item [", count_add1,"] [", add1[count_add1], "]")
+                  add1[count_add1] = int(input())
+                  print(add1[count_add1])
+                  print("")
+                  print("would you like to re-input the amount again? enter 'yes' to re-input, press any other key to continue with new items")
+                  temp = input()
+                  if temp == "yes":
+                      cloop_add1 = True
+                  else:
+                      cloop_add1 = False
+
+
+        #less properties // sales
+        elif temp == "less":
+            print("")
+            print("please enter the item name")
+            less_name1 = np.append(less_name1, str(input()))
+            print(less_name1)
+            print("")
+            print("please enter the item's amount",)
+            less1 = np.append(less1, int(input()))
+            print(less1)
+            print("")
+            count_less1 = count_less1 + 1
+            print("number of current item is", count_less1)
+            print("")
+            print("would you like to re-input the amount again? enter 'yes' to re-input, press any other key to continue with new items",)
+            temp = input()
+
+            #re-input loop // less // sales
+            if temp == "yes":
+              while cloop_less1 == True:
+                print("")
+                print("please type again for the item name you would like to change in item [", count_less1,"] [", less_name1[count_less1], "]")
+                less_name1[count_less1] = input()
+                print(less_name1[count_less1])
+                print("")
+                print("please type again for the item's amount you would like to change in item [", count_less1,"] [", less1[count_less1], "]")
+                less1[count_less1] = int(input())
+                print(less1[count_less1])
+                print("")
+                print("would you like to re-input the amount again? enter yes to re-input, press any other key to continue with new items")
+                if input() == "yes":
+                    cloop_less1 = True
+                else:
+                    cloop_less1 = False
+
+
+                #error 1
+        else:
+           print("///////////////////////////////////////////////////////////////////////////////////////////////////////////////")
+           print("syntax error, please try to input the properties again.")
+           print("///////////////////////////////////////////////////////////////////////////////////////////////////////////////")
+
+#variables for cost of goods sold
+add2 = np.array([])
+add_name2 = np.array([])
+less2 = np.array([])
+less_name2 = np.array([])
+statement2 = True
+aa = True
+count_add2 = -1
+count_less2 = -1
+cloop_add2 = True
+cloop_less2 = True
+cloopend2 = True
+
+
+
+
+#continue stage 3 for cost of goods /////// IN TESTING ////////
+print("/////////////////////////////////////////////////////")
+print("stage 3: continue.")
+print("")
+print("/////COST OF GOODS SOLD/////")
+print("")
+print("please press enter to continue")
+temp = input
+
+while aa == True:
+        print("")
+        print("please enter the property of the item first(add/less), and the item's name and amount of the item respectively.")
+        print("")
+
+        print("please enter the property of the item (add/less):  ")
+        print("enter 'end' for ending the cost of goods sold section ")
+        temp = input()
+
+        #end loop print out // cost of goods sold
+        if temp == "end":
+          print("")
+          print("please enter the total amount of 'closing inventory' at the end of the year:")
+          closein = input()
+          print("")
+
+          print("would you like to re-input the 'closing inventory' amount again, type 'yes' for re-input, press any other key to continue")
+          temp = input()
+          if temp == "yes":
+            while cloopend2 == True:
+              print("")
+              print("please input the amount of 'closing inventory' again.")
+              closein = input()
+              print("")
+              print("would you like to re-input the 'closing inventory' amount again, type 'yes' for re-input, press any other key to continue")
+              temp = input()
+              if temp == "yes":
+                cloopend2 = True
+              else:
+                cloopend2 = False
+
+
+
+
+          print("")
+          print("")
+          print("please check the following:")
+          print("")
+          time.sleep(2)
+          print("/////Less: COST OF GOODS SOLD/////")
+          print("'item'[left]", "                      ", "'amount($)'[right]")
+          for item_a, item_b in zip(add_name2, add2):
+              print("add:", item_a,"          ", item_b)
+          for item_a, item_b in zip(less_name2, less2):
+              print("less:",item_a,"          ", item_b)
+          print("less: closing inventory", "    ", closein)
+
+          costofgoodsadd = np.sum(add2)
+          costofgoodsless = np.sum(less2)
+          grossprofit = int(sales) - (int(costofgoodsadd) - int(costofgoodsless) - int(closein))
+
+          print("gross profit             ", grossprofit)
+          print("")
+          print("")
+          print("please press enter to confirm the above, and continue to the next stage.")
+          temp = input()
+          aa = False
+
+
+        #add properties 2 // cost of goods sold
+        elif temp == "add":
+          print("")
+          print("please enter the item name")
+          add_name2 = np.append(add_name2, input())
+          print(add_name2)
+          print("")
+          print("please enter the item's amount",)
+          add2 = np.append(add2, input())
+          print(add2)
+          print("")
+          count_add2 = count_add2 + 1
+          print("number of current item is", count_add2)
+          print("")
+          print("would you like to re-input the amount again? enter 'yes' to re-input, press any other key to continue with new items")
+          temp = input()
+
+            #re-input loop // add // cost of goods sold
+          if temp == "yes":
+              while cloop_add2 == True:
+                  print("")
+                  print("please type again for the item name you would like to change in item [", count_add2,"] [", add_name2[count_add2], "]")
+                  add_name2[count_add2] = input()
+                  print(add_name2[count_add2])
+                  print("")
+                  print("please type again for the item's amount you would like to change in item [", count_add2,"] [", add2[count_add2], "]")
+                  add2[count_add2] = input()
+                  print(add2[count_add2])
+                  print("")
+                  print("would you like to re-input the amount again? enter 'yes' to re-input, press any other key to continue with new items")
+                  temp = input()
+                  if temp == "yes":
+                      cloop_add2 = True
+                  else:
+                      cloop_add2 = False
+
+
+        #less properties // cost of goods sold
+        elif temp == "less":
+            print("")
+            print("please enter the item name")
+            less_name2 = np.append(less_name2, input())
+            print(less_name2)
+            print("")
+            print("please enter the item's amount",)
+            less2 = np.append(less2, input())
+            print(less2)
+            print("")
+            count_less2 = count_less2 + 1
+            print("number of current item is", count_less2)
+            print("")
+            print("would you like to re-input the amount again? enter 'yes' to re-input, press any other key to continue with new items")
+            temp = input()
+
+            #re-input loop // less // cost of goods sold
+            if temp == "yes":
+              while cloop_less2 == True:
+                print("")
+                print("please type again for the item name you would like to change in item [", count_less2,"] [", less_name2[count_less2], "]")
+                less_name2[count_less2] = input()
+                print(less_name2[count_less2])
+                print("")
+                print("please type again for the item's amount you would like to change in item [", count_less2,"] [", less2[count_less2], "]")
+                less2[count_less2] = input()
+                print(less2[count_less2])
+                print("")
+                print("would you like to re-input the amount again? enter yes to re-input, press any other key to continue with new items")
+                temp = input()
+                if temp == "yes":
+                    cloop_less2 = True
+                else:
+                    cloop_less2 = False
+
+
+                #error 2
+        else:
+           print("///////////////////////////////////////////////////////////////////////////////////////////////////////////////")
+           print("syntax error, please try to input the properties again.")
+           print("///////////////////////////////////////////////////////////////////////////////////////////////////////////////")
+
+#add variables
+aa = True
+rev = np.array([])
+rev_name = np.array([])
+exp = np.array([])
+exp_name = np.array([])
+rev_count = -1
+exp_count = -1
+revtotal = 0
+exptotal = 0
+
+cloop_rev = True
+cloop_exp = True
+
+
+
+
+#stage 4 other revenue start
+print("//////////////////////////////")
+print("stage 4:continue")
+print("")
+print("/////OTHER REVENUE/////")
+print("")
+print("please press enter to coninue")
+temp = input()
+
+#other revenue
+while aa == True:
+  print("")
+  print("if you would like to end the 'other revenue' stage, please enter 'end', if you would like to add items in 'other revenue' please press any other key")
+  temp = input()
+
+  if temp == "end":
+    print("")
+    print("")
+    print("please check the following:")
+    time.sleep(2)
+    print("")
+    print("/////OTHER REVENUE/////")
+    print("'item'[left]", "                      ", "'amount($)'[right]")
+    for item_a, item_b in zip(rev_name, rev):
+        print("add:", item_a,"          ", item_b)
+    revtotal = np.sum(rev)
+    print("total of other revenue     ", revtotal)
+    print("")
+    print("please press enter to confirm the above, and continue to the next stage.")
+    temp = input()
+    aa = False
+
+  if temp != "end":
+    print("please enter the name of 'other revenue' you would like to input: ")
+    rev_name = np.append(rev_name, input())
+    print(rev_name)
+    print("")
+    print("please enter the item's amount",)
+    rev = np.append(rev, input())
+    print(rev)
+    print("")
+    rev_count = rev_count + 1
+    print("number of current item is", rev_count)
+    print("")
+    print("would you like to re-input the amount again? enter 'yes' to re-input, press any other key to continue with new items")
+    temp = input()
+
+           #other revenue loop
+    if temp == "yes":
+          while cloop_rev == True:
+            print("")
+            print("please type again for the item name you would like to change in item [", rev_count,"] [", rev_name[rev_count], "]")
+            rev_name[rev_count] = input()
+            print(rev_name[rev_count])
+            print("")
+            print("please type again for the item's amount you would like to change in item [", rev_count,"] [", rev[rev_count], "]")
+            rev[rev_count] = input()
+            print(rev[rev_count])
+            print("")
+            print("would you like to re-input the amount again? enter yes to re-input, press any other key to continue with new items")
+            temp = input()
+            if temp == "yes":
+                clooprev = True
+            else:
+                clooprev = False
+
+    if temp != "end" and "yes":
+           print("///////////////////////////////////////////////////////////////////////////////////////////////////////////////")
+           print("syntax error, please try to input the properties again.")
+           print("///////////////////////////////////////////////////////////////////////////////////////////////////////////////")
+
+
+#stage 5: other expenses
+
+
+aa = True
+
+print("//////////////////////////////")
+print("stage 5:continue")
+print("")
+print("/////OTHER EXPENSES/////")
+print("")
+print("please press enter to coninue")
+temp = input()
+
+#other revenue
+while aa == True:
+  print("")
+  print("if you would like to end the 'other expenses' stage, please enter 'end', if you would like to add items in 'other expenses' please press any other key")
+  temp = input()
+
+  if temp == "end":
+    print("")
+    print("")
+    print("please check the following:")
+    time.sleep(2)
+    print("")
+    print("/////OTHER EXPENSES/////")
+    print("'item'[left]", "                      ", "'amount($)'[right]")
+    for item_a, item_b in zip(exp_name, exp):
+        print("add:", item_a,"          ", item_b)
+    exptotal = np.sum(exp)
+    print("total of other expenses     ", exptotal)
+    print("")
+    print("")
+    print("please press enter to confirm the above, and continue to the next stage.")
+    temp = input()
+    aa = False
+
+  if temp != "end":
+    print("please enter the name of 'other expenses' you would like to input: ")
+    exp_name = np.append(exp_name, input())
+    print(exp_name)
+    print("")
+    print("please enter the item's amount",)
+    exp = np.append(exp, input())
+    print(exp)
+    print("")
+    exp_count = exp_count + 1
+    print("number of current item is", exp_count)
+    print("")
+    print("would you like to re-input the amount again? enter 'yes' to re-input, press any other key to continue with new items")
+    temp = input()
+
+           #other expenses loop
+    if temp == "yes":
+          while cloop_exp == True:
+            print("")
+            print("please type again for the item name you would like to change in item [", exp_count,"] [", exp_name[exp_count], "]")
+            exp_name[exp_count] = input()
+            print(exp_name[exp_count])
+            print("")
+            print("please type again for the item's amount you would like to change in item [", exp_count,"] [", exp[exp_count], "]")
+            exp[exp_count] = input()
+            print(exp[exp_count])
+            print("")
+            print("would you like to re-input the amount again? enter yes to re-input, press any other key to continue with new items")
+            temp = input()
+            if temp == "yes":
+                cloopexp = True
+            else:
+                cloopexp = False
+
+    if temp != "end" and "yes":
+           print("///////////////////////////////////////////////////////////////////////////////////////////////////////////////")
+           print("syntax error, please try to input the properties again.")
+           print("///////////////////////////////////////////////////////////////////////////////////////////////////////////////")
